@@ -69,16 +69,16 @@ huginn:
       oauth_secret: null
       # The address from which system emails will appear to be sent.
     email_from_address: from_address@gmail.com
-      # Enable this setting to allow insecure Agents like the ShellCommandAgent.  Only do this
-      # when you trust everyone using your Huginn installation.
+      # Enable this setting to allow insecure Agents like the ShellCommandAgent.
+      # Only do this when you trust everyone using your Huginn installation.
     enable_insecure_agents: false
       # Enable this setting to allow second precision schedule in
       # SchedulerAgent.  By default, the use of the "second" field is
       # restricted so that any value other than a single zero (which means
       # "on the minute") is disallowed to prevent abuse of service.
     enable_second_precision_schedule: false
-      # Specify the frequency with which the scheduler checks for and cleans up expired events.
-      # You can use `m` for minutes, `h` for hours, and `d` for days.
+      # Specify the frequency with which the scheduler checks for and cleans up
+      # expired events. You can use `m` for minutes, `h` for hours, and `d` for days.
     event_expiration_check: 6h
       # https://github.com/huginn/huginn/wiki/Configuring-OAuth-applications
     evernote:
