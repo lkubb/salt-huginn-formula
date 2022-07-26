@@ -22,6 +22,8 @@ Huginn user session is initialized at boot:
   compose.lingering_managed:
     - name: {{ huginn.lookup.user.name }}
     - enable: {{ huginn.install.rootless }}
+    - require:
+      - user: {{ huginn.lookup.user.name }}
 
 Huginn paths are present:
   file.directory:

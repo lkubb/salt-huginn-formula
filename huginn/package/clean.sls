@@ -33,6 +33,9 @@ Huginn user session is not initialized at boot:
   compose.lingering_managed:
     - name: {{ huginn.lookup.user.name }}
     - enable: false
+    - onlyif:
+      - fun: user.info
+        name: {{ huginn.lookup.user.name }}
 
 Huginn user account is absent:
   user.absent:
@@ -40,6 +43,9 @@ Huginn user account is absent:
     - purge: {{ huginn.install.remove_all_data_for_sure }}
     - require:
       - Huginn is absent
+    - retry:
+        attempts: 5
+        interval: 2
 
 {%- if huginn.install.remove_all_data_for_sure %}
 
