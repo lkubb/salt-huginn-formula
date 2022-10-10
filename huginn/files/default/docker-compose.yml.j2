@@ -8,6 +8,10 @@ services:
       - huginn.env
     ports:
       - {{ huginn.config.port }}:{{ huginn.config.port }}
+{%- if huginn.install.autoupdate %}
+    labels:
+      - io.containers.autoupdate=registry
+{%- endif %}
     depends_on:
       - db
   db:
@@ -15,6 +19,10 @@ services:
     restart: unless-stopped
     env_file:
       - db.env
+{%- if huginn.install.autoupdate %}
+    labels:
+      - io.containers.autoupdate=registry
+{%- endif %}
     volumes:
       - {{ huginn.lookup.paths.db or "huginn-db" }}:/var/lib/mysql
 

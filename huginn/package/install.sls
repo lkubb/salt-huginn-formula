@@ -71,3 +71,15 @@ Huginn is installed:
     - require:
       - user: {{ huginn.lookup.user.name }}
 {%- endif %}
+
+{%- if huginn.install.autoupdate_service is not none %}
+
+Podman autoupdate service is managed for Huginn:
+{%-   if huginn.install.rootless %}
+  compose.systemd_service_{{ "enabled" if huginn.install.autoupdate_service else "disabled" }}:
+    - user: {{ huginn.lookup.user.name }}
+{%-   else %}
+  service.{{ "enabled" if huginn.install.autoupdate_service else "disabled" }}:
+{%-   endif %}
+    - name: podman-auto-update.timer
+{%- endif %}

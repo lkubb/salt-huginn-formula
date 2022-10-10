@@ -8,6 +8,18 @@
 include:
   - {{ sls_config_clean }}
 
+{%- if huginn.install.autoupdate_service %}
+
+Podman autoupdate service is disabled for Huginn:
+{%-   if huginn.install.rootless %}
+  compose.systemd_service_disabled:
+    - user: {{ huginn.lookup.user.name }}
+{%-   else %}
+  service.disabled:
+{%-   endif %}
+    - name: podman-auto-update.timer
+{%- endif %}
+
 Huginn is absent:
   compose.removed:
     - name: {{ huginn.lookup.paths.compose }}
