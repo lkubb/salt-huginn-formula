@@ -15,5 +15,6 @@ Huginn environment files are absent:
     - names:
       - {{ huginn.lookup.paths.config_huginn }}
       - {{ huginn.lookup.paths.config_db }}
+      - {{ huginn.lookup.paths.base | path_join(".saltcache.yml") }}
     - require:
       - sls: {{ sls_service_clean }}
