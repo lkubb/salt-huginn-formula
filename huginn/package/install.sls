@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as huginn with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
@@ -35,11 +34,28 @@ Huginn paths are present:
     - require:
       - user: {{ huginn.lookup.user.name }}
 
+{%- if huginn.install.podman_api %}
+
+Huginn podman API is enabled:
+  compose.systemd_service_enabled:
+    - name: podman
+    - user: {{ huginn.lookup.user.name }}
+    - require:
+      - Huginn user session is initialized at boot
+
+Huginn podman API is available:
+  compose.systemd_service_running:
+    - name: podman
+    - user: {{ huginn.lookup.user.name }}
+    - require:
+      - Huginn user session is initialized at boot
+{%- endif %}
+
 Huginn compose file is managed:
   file.managed:
     - name: {{ huginn.lookup.paths.compose }}
-    - source: {{ files_switch(['docker-compose.yml', 'docker-compose.yml.j2'],
-                              lookup='Huginn compose file is present'
+    - source: {{ files_switch(["docker-compose.yml", "docker-compose.yml.j2"],
+                              lookup="Huginn compose file is present"
                  )
               }}
     - mode: '0644'

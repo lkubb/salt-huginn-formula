@@ -1,8 +1,14 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
-{%- set sls_config_clean = tplroot ~ '.config.clean' %}
+{#-
+    Removes the huginn, db containers
+    and the corresponding user account and service units.
+    Has a depency on `huginn.config.clean`_.
+    If ``remove_all_data_for_sure`` was set, also removes all data.
+#}
+
+{%- set tplroot = tpldir.split("/")[0] %}
+{%- set sls_config_clean = tplroot ~ ".config.clean" %}
 {%- from tplroot ~ "/map.jinja" import mapdata as huginn with context %}
 
 include:
@@ -40,6 +46,25 @@ Huginn compose file is absent:
     - name: {{ huginn.lookup.paths.compose }}
     - require:
       - Huginn is absent
+
+{%- if huginn.install.podman_api %}
+
+Huginn podman API is unavailable:
+  compose.systemd_service_dead:
+    - name: podman
+    - user: {{ huginn.lookup.user.name }}
+    - onlyif:
+      - fun: user.info
+        name: {{ huginn.lookup.user.name }}
+
+Huginn podman API is disabled:
+  compose.systemd_service_disabled:
+    - name: podman
+    - user: {{ huginn.lookup.user.name }}
+    - onlyif:
+      - fun: user.info
+        name: {{ huginn.lookup.user.name }}
+{%- endif %}
 
 Huginn user session is not initialized at boot:
   compose.lingering_managed:
