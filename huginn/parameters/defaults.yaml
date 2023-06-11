@@ -135,6 +135,11 @@ values:
     use_evernote_sandbox: false
     use_graphviz_dot: dot
     use_jq: jq
+  tofs:
+    files_switch:
+      - id
+      - roles
+      - os_family
   # Just here for testing
   added_in_defaults: defaults_value
   winner: defaults
