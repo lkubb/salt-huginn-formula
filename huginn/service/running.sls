@@ -34,3 +34,4 @@ Huginn service is running:
 {%- endif %}
     - watch:
       - Huginn is installed
+      - sls: {{ sls_config_file }}

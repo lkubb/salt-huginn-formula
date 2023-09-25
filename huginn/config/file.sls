@@ -34,7 +34,7 @@ Huginn environment files are managed:
     - template: jinja
     - require:
       - user: {{ huginn.lookup.user.name }}
-    - watch_in:
+    - require_in:
       - Huginn is installed
     - context:
         huginn: {{ huginn | json }}
