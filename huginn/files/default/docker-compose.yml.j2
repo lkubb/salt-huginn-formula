@@ -24,7 +24,7 @@ services:
       - io.containers.autoupdate=registry
 {%- endif %}
     volumes:
-      - {{ huginn.lookup.paths.db or "huginn-db" }}:/var/lib/mysql
+      - {{ huginn.lookup.paths.db or "huginn-db" }}:/var/lib/mysql:Z
 
 {%- if not huginn.lookup.paths.db  %}
 
