@@ -217,7 +217,7 @@ huginn:
       db:
         image: docker.io/library/mariadb
       huginn:
-        image: docker.io/huginn/huginn:latest
+        image: ghcr.io/huginn/huginn:latest
 
   tofs:
       # The files_switch key serves as a selector for alternative

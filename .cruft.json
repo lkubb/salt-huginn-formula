@@ -27,7 +27,7 @@
             "image": "docker.io/library/mariadb"
           },
           "huginn": {
-            "image": "docker.io/huginn/huginn:latest"
+            "image": "ghcr.io/huginn/huginn:latest"
           }
         },
         "paths": {
